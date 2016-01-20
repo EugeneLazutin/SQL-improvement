@@ -2,8 +2,8 @@ use [Blogging]
 go
 
 create procedure [CreateBlog]
-@Name varchar(60),
-@UserId int
+@UserId int,
+@Name varchar(60)
 as
 begin
 	insert [Blogs]([Name], [UserId])
