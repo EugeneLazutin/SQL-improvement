@@ -26,6 +26,13 @@ echo.
 for %%G in (Blogging_view*.sql) do (sqlcmd /S %server% -E -i"%%G" -b & if ERRORLEVEL 1 goto err_handler)
 
 echo.
+echo Populating database...
+echo.
+
+sqlcmd /S %server% -E -i"Blogging_fill_database.sql" -b
+if ERRORLEVEL 1 goto err_handler
+
+echo.
 echo Blogging database created!
 
 pause
