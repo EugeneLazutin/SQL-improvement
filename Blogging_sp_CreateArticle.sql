@@ -17,6 +17,9 @@ create procedure [CreateArticle]
 @Content varchar(max)
 as
 begin
+
+    set transaction isolation level read committed
+
     declare @blocked bit = 0
     if (select top(1) [Paid] from [Blogs] where [BlogId] = @BlogId) = 0
     begin
@@ -24,14 +27,9 @@ begin
         exec @blocked = dbo.IsBlocked @BlogId, @userId
     end
     
-    begin transaction
-    begin try
-        insert into [Articles](BlogId, Title, Content, Blocked) values (@BlogId, @Title, @Content, @blocked)
-        commit
-    end try
-    begin catch
-        rollback
-    end catch
+    begin tran
+    insert into [Articles](BlogId, Title, Content, Blocked) values (@BlogId, @Title, @Content, @blocked)
+    commit tran
 end
 go
 

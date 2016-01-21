@@ -17,6 +17,7 @@ go
 
 create procedure [FindArticles] @date datetime as
 begin
+    set transaction isolation level read uncommitted
     select * from [ArticlesInfo] where created > @date
 end
 go

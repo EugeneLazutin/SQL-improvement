@@ -8,8 +8,10 @@ create procedure [CreateUser]
 @Email varchar(60)
 as
 begin
-    insert [Users]([Login], [Password], [Name], [Email])
-    values (@Login, @Password, @Name, @Email)
+    begin tran
+        insert [Users]([Login], [Password], [Name], [Email])
+        values (@Login, @Password, @Name, @Email)
+    commit
 end
 go
 
