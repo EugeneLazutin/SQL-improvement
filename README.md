@@ -23,7 +23,6 @@ T-SQL scripts for creating Blogging database with SP, VIEW, etc.
 * UnpaidBlogs
 * UsersInfo
 * BlogRating (using in UnpaidBlogs view)
-* ArticlesComments (using in FindArticles SP)
 * ArticlesInfo (using in FindArticles SP)
 
 #### SP signatures
