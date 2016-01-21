@@ -11,9 +11,6 @@ go
 use [Blogging]
 go
 
-set implicit_transactions off
-go
-
 create table [Users]
 (
     [UserId] int identity(1,1) primary key,
@@ -58,7 +55,7 @@ create table [Comments]
     [Content] varchar(120),
     [Created] datetime not null default getdate(),
     foreign key ([UserId])  references [Users]([UserId]),
-    foreign key ([ArticleId]) references [Articles]([ArticleId]),
+    foreign key ([ArticleId]) references [Articles]([ArticleId])
 )
 go
 
