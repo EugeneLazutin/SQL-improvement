@@ -10,14 +10,14 @@ go
 
 create view [UnpaidBlogs] as
 select
-    b.BlogId as id,
-    b.Name as name,
-    u.Name as 'user name',
-    u.Email as email,
-    COUNT(a.ArticleId) as total,
-    SUM(CASE WHEN a.Blocked = 1 THEN 1 ELSE 0 END) as blocked,
-    SUM(CASE WHEN a.Blocked = 0 THEN 1 ELSE 0 END) as unblocked,
-    b.rating
+    b.BlogId as Id,
+    b.Name as Blog,
+    u.Name as Author,
+    u.Email as Email,
+    COUNT(a.ArticleId) as Articles,
+    SUM(CASE WHEN a.Blocked = 1 THEN 1 ELSE 0 END) as Blocked,
+    SUM(CASE WHEN a.Blocked = 0 THEN 1 ELSE 0 END) as Unblocked,
+    b.Rating
 from [BlogRating] b
 join [Users] u on b.UserId = u.UserId and b.Paid = 0
 join [Articles] a on b.BlogId = a.BlogId
