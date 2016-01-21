@@ -74,25 +74,5 @@ create table [Votes]
 )
 go
 
-create trigger [SetArticleBlocked] on [Articles] after insert as
-begin
-    set transaction isolation level read committed
-    declare @blogId int = (select top(1) [BlogId] from [inserted])
-    declare @blogPaid bit = (select top(1) b.[Paid] from [Blogs] b where b.BlogId = @blogId)
-
-    if @blogPaid = 0
-    begin
-        declare @articleId int = (select top(1) [ArticleId] from [inserted])
-        declare @userId bit = (select top(1) [UserId] from [Blogs] where [BlogId] = @blogId)
-        declare @articlesInBlogCount int = (select COUNT(*) from [Articles] a where a.BlogId = @blogId)
-        declare @articlesAtUserCount int = (select COUNT(*) from [Articles] a where a.BlogId in (select b.[BlogId] from [Blogs] b where b.[Paid] = 0 and b.[UserId] = @userId))
- 
-        if (@articlesInBlogCount >= 100 or @articlesAtUserCount >= 1000)
-            update [Articles] set Blocked = 1 where ArticleId = @articleId
-    end
-
-end
-go
-
 use [master]
 go

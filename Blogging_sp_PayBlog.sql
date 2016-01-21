@@ -8,7 +8,7 @@ begin
         begin transaction
         begin try
             update [Blogs] set [Paid] = 1 where [BlogId] = @BlogId
-            update [Articles] set [Blocked] = 0 where [BlogId] = @blogId
+            update [Articles] set [Blocked] = 0 where [BlogId] = @blogId and [Blocked] = 1
             commit
         end try
         begin catch
