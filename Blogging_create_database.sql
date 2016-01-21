@@ -11,6 +11,9 @@ go
 use [Blogging]
 go
 
+set implicit_transactions off
+go
+
 create table [Users]
 (
 	[UserId] int identity(1,1) primary key,
@@ -73,7 +76,7 @@ go
 
 create trigger [SetArticleBlocked] on [Articles] after insert as
 begin
-	set nocount on
+	set transaction isolation level read committed
 	declare @blogId int = (select top(1) [BlogId] from [inserted])
 	declare @blogPaid bit = (select top(1) b.[Paid] from [Blogs] b where b.BlogId = @blogId)
 
@@ -88,17 +91,6 @@ begin
 			update [Articles] set Blocked = 1 where ArticleId = @articleId
 	end
 
-end
-go
-
-create trigger [OnPay] on [Blogs] after update as
-begin
-    set nocount on
-    declare @blogId  int = (select top(1) [BlogId] from [inserted])
-	declare @paid bit = (select top(1) [Paid] from [inserted])
-
-	if update (Paid) and @paid = 1
-		update [Articles] set Blocked = 0 where BlogId = @blogId
 end
 go
 
