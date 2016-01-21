@@ -6,8 +6,8 @@ create procedure [CreateBlog]
 @Name varchar(60)
 as
 begin
-	insert [Blogs]([Name], [UserId])
-	values (@Name, @UserId)
+    insert [Blogs]([Name], [UserId])
+    values (@Name, @UserId)
 end
 go
 

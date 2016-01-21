@@ -17,7 +17,7 @@ go
 
 create procedure [FindArticles] @date datetime as
 begin
-	select * from [ArticlesInfo] where created > @date
+    select * from [ArticlesInfo] where created > @date
 end
 go
 

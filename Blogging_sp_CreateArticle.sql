@@ -7,8 +7,8 @@ create procedure [CreateArticle]
 @Content varchar(max)
 as
 begin
-	insert into [Articles](BlogId, Title, Content)
-	values (@BlogId, @Title, @Content)
+    insert into [Articles](BlogId, Title, Content)
+    values (@BlogId, @Title, @Content)
 end
 go
 
